@@ -1,70 +1,26 @@
-<div *ngIf="articulos!=null; else espera">
-    <table border="1">
-      <tr>
-        <td>Codigo</td><td>Descripcion</td><td>Precio</td>
-      </tr>
-      <tr *ngFor="let art of articulos">
-        <td>{{art.codigo}}</td>
-        <td>{{art.descripcion}}</td>
-        <td>{{art.precio}}</td>
-      </tr>
-    </table>
+<div>
+    <h1>Administración de artículos</h1>
+      <table border="1" *ngIf="hayRegistros(); else sinarticulos">
+        <tr>
+          <td>Codigo</td><td>Descripcion</td><td>Precio</td><td>Borrar</td><td>Seleccionar</td>
+        </tr>
+        <tr *ngFor="let art of articulos">
+          <td>{{art.codigo}}</td>
+          <td>{{art.descripcion}}</td>
+          <td>{{art.precio}}</td>
+          <td><button (click)="baja(art.codigo)">Borrar?</button></td>
+          <td><button (click)="seleccionar(art.codigo)">Seleccionar</button></td>        
+        </tr>
+      </table>
+      <ng-template #sinarticulos><p>No hay articulos.</p></ng-template>
+      <div>
+        <p>
+          descripcion:<input type="text" [(ngModel)]="art.descripcion" />
+        </p>
+        <p>
+          precio:<input type="number" [(ngModel)]="art.precio" />
+        </p>            
+        <p><button (click)="alta()">Agregar</button>
+        <button (click)="modificacion()">Modificar</button></p>
+      </div>  
   </div>
-  <ng-template #espera>Esperando datos...</ng-template>
-<br>
-<hr>
-<br>
-<div style="text-align:center">
-  <app-dado [valor]="6"></app-dado>
-</div>
-<br>
-<hr>
-<br>
-<app-listadoarticulos [datos]="articulos"></app-listadoarticulos>
-<br>
-<hr>
-<br>
-<div>
-  <app-selectornumerico2 [minimo]="1" [maximo]="10" #selector1></app-selectornumerico2>
-  <br>  
-  <button (click)="fijarSelector1(1)">Fijar en 1</button><br>
-  <button (click)="fijarSelector1(5)">Fijar en 5</button><br>
-  <button (click)="fijarSelector1(10)">Fijar en 10</button>
-  <hr>
-  <app-selectornumerico2 [minimo]="1" [maximo]="10" #selector2></app-selectornumerico2>    
-  <br>
-  <button (click)="fijarSelector2(1)">Fijar en 1</button><br>
-  <button (click)="fijarSelector2(5)">Fijar en 5</button><br>
-  <button (click)="fijarSelector2(10)">Fijar en 10</button>  
-</div>
-<br>
-<hr>
-<br>
-<div>
-  <app-selectornumerico [minimo]="1" [maximo]="10" #selector></app-selectornumerico>
-  <br>
-  <button (click)="selector.fijar(1)">Fijar en 1</button><br>
-  <button (click)="selector.fijar(5)">Fijar en 5</button><br>
-  <button (click)="selector.fijar(10)">Fijar en 10</button>
-</div>
-<br>
-<hr>
-<br>
-<div style="text-align:center">
-  <h1>Prueba de la componente cronometro</h1>
-  <app-cronometro [inicio]="1" (multiplo10)="actualizar($event)"></app-cronometro>
-  <h2>Evento</h2>
-  <h3>{{mensaje}}</h3>
-</div>
-<br>
-<hr>
-<br>
-<div style="text-align:center">
-  <app-dado [valor]="valor1"></app-dado>
-  <app-dado [valor]="valor2"></app-dado>
-  <app-dado [valor]="valor3"></app-dado>
-  <hr>
-  <button (click)="tirar()">Tirar</button>  
-  <hr>
-  <p>Resultado:{{resultado}}</p>
-</div>
